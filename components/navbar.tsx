@@ -15,6 +15,20 @@ const navItems = [
   { href: "/ajuda", label: "Instruções" },
 ];
 
+/**
+ * Renderiza a barra de navegacao responsiva da aplicacao.
+ *
+ * Entrada:
+ * - nao recebe parametros.
+ *
+ * Variaveis usadas:
+ * - pathname/currentPath: rota atual usada para destacar o link ativo.
+ * - open: controla se o menu mobile esta aberto.
+ * - navItems: lista de links do menu.
+ *
+ * Saida:
+ * - header fixo com links e botao de abrir/fechar no mobile.
+ */
 export function Navbar() {
   const pathname = usePathname();
   const currentPath = pathname ?? "/";

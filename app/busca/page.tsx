@@ -14,6 +14,20 @@ const patients = [
   { id: 3, name: "Paciente 3", age: 11 },
 ];
 
+/**
+ * Renderiza a busca de pacientes e filtra a lista conforme o texto digitado.
+ *
+ * Entrada:
+ * - nao recebe parametros.
+ *
+ * Variaveis usadas:
+ * - query: texto digitado no campo de busca.
+ * - patients: lista base de pacientes.
+ * - filteredPatients: pacientes que correspondem ao filtro atual.
+ *
+ * Saida:
+ * - tela com campo de busca e cards dos pacientes encontrados.
+ */
 export default function BuscaPage() {
   const [query, setQuery] = useState("");
 

@@ -5,6 +5,17 @@ import { cn } from "@/lib/utils";
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
+/**
+ * Campo de texto longo padrao da interface.
+ *
+ * Entrada:
+ * - className: classes extras.
+ * - props: demais atributos HTML do textarea.
+ * - ref: referencia encaminhada ao textarea.
+ *
+ * Saida:
+ * - textarea estilizado e controlavel por props.
+ */
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
     return (

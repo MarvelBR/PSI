@@ -49,6 +49,18 @@ const instructions = [
   },
 ];
 
+/**
+ * Renderiza as instrucoes de uso do TerapiApp.
+ *
+ * Entrada:
+ * - nao recebe parametros.
+ *
+ * Variaveis usadas:
+ * - instructions: lista de textos e icones exibidos na pagina.
+ *
+ * Saida:
+ * - pagina com orientacoes numeradas para o profissional de saude.
+ */
 export default function AjudaPage() {
   return (
     <main className="page-shell">

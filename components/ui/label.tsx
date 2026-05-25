@@ -10,6 +10,17 @@ const labelVariants = cva(
   "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
 );
 
+/**
+ * Rotulo acessivel para campos de formulario.
+ *
+ * Entrada:
+ * - className: classes extras.
+ * - props: propriedades do LabelPrimitive, como htmlFor.
+ * - ref: referencia encaminhada ao componente primitivo.
+ *
+ * Saida:
+ * - LabelPrimitive.Root com estilos padrao de texto.
+ */
 const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &

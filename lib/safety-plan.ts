@@ -106,6 +106,18 @@ export const emergencyContacts = [
   },
 ];
 
+/**
+ * Busca os dados de uma etapa do plano de seguranca pelo slug da URL.
+ *
+ * Entrada:
+ * - slug: identificador da etapa, por exemplo "2" ou "plano".
+ *
+ * Variaveis usadas:
+ * - safetySteps: lista com todas as etapas disponiveis.
+ *
+ * Saida:
+ * - objeto da etapa encontrada ou undefined quando o slug nao existe.
+ */
 export function getSafetyStep(slug: string) {
   return safetySteps.find((step) => step.slug === slug);
 }

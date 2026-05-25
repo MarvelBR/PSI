@@ -22,6 +22,18 @@ const actions = [
   },
 ];
 
+/**
+ * Renderiza a tela inicial com a imagem principal e atalhos do sistema.
+ *
+ * Entrada:
+ * - nao recebe parametros externos.
+ *
+ * Variaveis usadas:
+ * - actions: define titulo, link e icone de cada card de atalho.
+ *
+ * Saida:
+ * - componente React com os botoes para registro, plano e instrucoes.
+ */
 export default function Home() {
   return (
     <main className="page-shell">

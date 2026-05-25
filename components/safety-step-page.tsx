@@ -17,6 +17,20 @@ type SafetyStepPageProps = {
   stepSlug: string;
 };
 
+/**
+ * Renderiza uma etapa do plano de seguranca e salva a resposta do usuario.
+ *
+ * Entrada:
+ * - stepSlug: slug da etapa que deve ser exibida.
+ *
+ * Variaveis usadas:
+ * - step: configuracao da etapa encontrada em safetySteps.
+ * - value: texto digitado no campo da etapa.
+ * - router: navega para voltar ou avancar.
+ *
+ * Saida:
+ * - pagina da etapa com progresso, campo de resposta e botoes de navegacao.
+ */
 export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
   const router = useRouter();
   const step = safetySteps.find((item) => item.slug === stepSlug) as SafetyStep;
@@ -32,6 +46,19 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
     return () => window.clearTimeout(timeout);
   }, [step.name]);
 
+  /**
+   * Persiste a resposta da etapa atual e navega para a proxima rota.
+   *
+   * Entrada:
+   * - usa value e step.name para montar o campo salvo.
+   *
+   * Variaveis usadas:
+   * - savedPlan: plano ja existente em localStorage.
+   * - updatedAt: horario da ultima alteracao.
+   *
+   * Saida:
+   * - localStorage safetyPlan atualizado e navegacao para step.next.
+   */
   function saveAndContinue() {
     const savedPlan = JSON.parse(localStorage.getItem("safetyPlan") || "{}");
     localStorage.setItem(
@@ -103,6 +130,18 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
   );
 }
 
+/**
+ * Renderiza os contatos de emergencia usados na etapa profissional.
+ *
+ * Entrada:
+ * - nao recebe parametros.
+ *
+ * Variaveis usadas:
+ * - emergencyContacts: lista com titulo, numero, descricao e icone.
+ *
+ * Saida:
+ * - grade de cards com telefones de apoio.
+ */
 function EmergencyContacts() {
   return (
     <div className="rounded-lg bg-gradient-to-br from-cyan-500 to-red-500 p-5 text-white">

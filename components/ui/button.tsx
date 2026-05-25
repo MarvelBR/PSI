@@ -40,6 +40,20 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
+/**
+ * Componente base de botao com variantes visuais e tamanhos.
+ *
+ * Entrada:
+ * - className: classes extras.
+ * - variant: estilo visual escolhido em buttonVariants.
+ * - size: tamanho escolhido em buttonVariants.
+ * - asChild: quando true, renderiza o filho via Slot em vez de <button>.
+ * - props: demais atributos HTML do botao.
+ * - ref: referencia encaminhada para o elemento final.
+ *
+ * Saida:
+ * - botao ou Slot com classes combinadas e props repassadas.
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";

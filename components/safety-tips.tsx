@@ -2,6 +2,18 @@ import { CheckCircle, Lightbulb } from "lucide-react";
 
 import { safetyTips } from "@/lib/safety-plan";
 
+/**
+ * Mostra dicas gerais sobre revisao e uso do plano de seguranca.
+ *
+ * Entrada:
+ * - nao recebe parametros.
+ *
+ * Variaveis usadas:
+ * - safetyTips: lista de dicas importada de lib/safety-plan.
+ *
+ * Saida:
+ * - secao com cards de dicas importantes.
+ */
 export function SafetyTips() {
   return (
     <section className="mt-8">

@@ -6,6 +6,18 @@ import { CheckCircle, Home, Printer, ShieldCheck } from "lucide-react";
 import { SafetyTips } from "@/components/safety-tips";
 import { Button } from "@/components/ui/button";
 
+/**
+ * Mostra a confirmacao final apos salvar o plano de seguranca.
+ *
+ * Entrada:
+ * - nao recebe parametros.
+ *
+ * Variaveis usadas:
+ * - window.print: aciona a impressao do plano quando o usuario clica no botao.
+ *
+ * Saida:
+ * - tela de sucesso com botoes para voltar ao inicio ou imprimir.
+ */
 export default function PlanoSucessoPage() {
   return (
     <main className="page-shell">

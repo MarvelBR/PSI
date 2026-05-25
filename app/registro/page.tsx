@@ -28,6 +28,20 @@ const initialForm = {
   reaction: "",
 };
 
+/**
+ * Renderiza o formulario de registro de mudanca de humor.
+ *
+ * Entrada:
+ * - nao recebe parametros externos.
+ *
+ * Variaveis usadas:
+ * - form: valores atuais dos campos do formulario.
+ * - saved: controla a mensagem de sucesso.
+ * - router: permite voltar para a pagina anterior.
+ *
+ * Saida:
+ * - pagina com campos de data, emocoes, situacao, pensamentos e reacao.
+ */
 export default function RegistroPage() {
   const router = useRouter();
   const [form, setForm] = useState({
@@ -36,10 +50,37 @@ export default function RegistroPage() {
   });
   const [saved, setSaved] = useState(false);
 
+  /**
+   * Atualiza um campo especifico do formulario sem alterar os outros.
+   *
+   * Entrada:
+   * - name: nome do campo que sera atualizado.
+   * - value: novo texto digitado pelo usuario.
+   *
+   * Variaveis usadas:
+   * - form/current: estado atual do formulario.
+   *
+   * Saida:
+   * - novo estado form com o campo escolhido atualizado.
+   */
   function updateField(name: keyof typeof initialForm, value: string) {
     setForm((current) => ({ ...current, [name]: value }));
   }
 
+  /**
+   * Salva o registro de humor no localStorage e limpa o formulario.
+   *
+   * Entrada:
+   * - usa os valores atuais da variavel form.
+   *
+   * Variaveis usadas:
+   * - moodData: copia do formulario com timestamp.
+   * - records: registros antigos lidos de localStorage.
+   * - saved: estado que exibe a confirmacao na tela.
+   *
+   * Saida:
+   * - localStorage atualizado e formulario reiniciado.
+   */
   function submitMoodForm() {
     const moodData = { ...form, timestamp: Date.now() };
     const records = JSON.parse(localStorage.getItem("moodRecords") || "[]");
@@ -164,6 +205,20 @@ type TextAreaFieldProps = {
   onChange: (value: string) => void;
 };
 
+/**
+ * Renderiza um campo de texto grande reutilizavel no formulario.
+ *
+ * Entrada:
+ * - id: chave do campo no objeto initialForm.
+ * - label: texto visivel do campo.
+ * - icon: icone exibido ao lado do label.
+ * - value: valor atual do textarea.
+ * - placeholder: texto de ajuda.
+ * - onChange: funcao chamada com o novo valor digitado.
+ *
+ * Saida:
+ * - bloco com Label e Textarea controlado pelo estado da pagina.
+ */
 function TextAreaField({
   id,
   label,

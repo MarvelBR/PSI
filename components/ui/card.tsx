@@ -2,6 +2,17 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Container visual padrao para agrupar conteudos em formato de card.
+ *
+ * Entrada:
+ * - className: classes extras.
+ * - props: atributos HTML repassados ao div.
+ * - ref: referencia encaminhada ao div.
+ *
+ * Saida:
+ * - div com borda, fundo e sombra padronizados.
+ */
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -17,6 +28,15 @@ const Card = React.forwardRef<
 ));
 Card.displayName = "Card";
 
+/**
+ * Area superior do card usada para titulo e descricao.
+ *
+ * Entrada:
+ * - className, props e ref do elemento div.
+ *
+ * Saida:
+ * - div com espacamento vertical de cabecalho.
+ */
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -25,6 +45,15 @@ const CardHeader = React.forwardRef<
 ));
 CardHeader.displayName = "CardHeader";
 
+/**
+ * Titulo padrao dentro de um card.
+ *
+ * Entrada:
+ * - className, props e ref do elemento h3.
+ *
+ * Saida:
+ * - h3 com tipografia de titulo.
+ */
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
@@ -37,6 +66,15 @@ const CardTitle = React.forwardRef<
 ));
 CardTitle.displayName = "CardTitle";
 
+/**
+ * Texto auxiliar ou descricao dentro de um card.
+ *
+ * Entrada:
+ * - className, props e ref do paragrafo.
+ *
+ * Saida:
+ * - p com estilo de texto secundario.
+ */
 const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
@@ -45,6 +83,15 @@ const CardDescription = React.forwardRef<
 ));
 CardDescription.displayName = "CardDescription";
 
+/**
+ * Area principal de conteudo do card.
+ *
+ * Entrada:
+ * - className, props e ref do elemento div.
+ *
+ * Saida:
+ * - div com padding padrao para conteudo.
+ */
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -53,6 +100,15 @@ const CardContent = React.forwardRef<
 ));
 CardContent.displayName = "CardContent";
 
+/**
+ * Area inferior do card, normalmente usada para acoes.
+ *
+ * Entrada:
+ * - className, props e ref do elemento div.
+ *
+ * Saida:
+ * - div alinhada e com espacamento de rodape.
+ */
 const CardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>

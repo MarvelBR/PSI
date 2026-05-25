@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   description: "Ferramentas para registro de humor e plano de segurança.",
 };
 
+/**
+ * Define a estrutura global de todas as paginas da aplicacao.
+ *
+ * Entrada:
+ * - children: conteudo da pagina atual renderizado pelo Next.js.
+ *
+ * Variaveis usadas:
+ * - Navbar: menu fixo superior.
+ * - Footer: rodape padrao.
+ *
+ * Saida:
+ * - HTML base com idioma pt-BR, menu, conteudo da pagina e rodape.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
