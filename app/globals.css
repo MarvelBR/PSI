@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 33% 98%;
+    --foreground: 210 29% 24%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 29% 24%;
+    --primary: 211 52% 62%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 140 37% 75%;
+    --secondary-foreground: 210 29% 24%;
+    --muted: 210 23% 92%;
+    --muted-foreground: 210 10% 48%;
+    --accent: 193 87% 67%;
+    --accent-foreground: 210 29% 24%;
+    --destructive: 4 76% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 23% 88%;
+    --input: 210 23% 88%;
+    --ring: 211 52% 62%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+    background:
+      radial-gradient(circle at top left, rgba(168, 213, 186, 0.45), transparent 32rem),
+      linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply mx-auto min-h-[calc(100vh-9rem)] w-full max-w-6xl px-4 pb-10 pt-24 sm:px-6 lg:px-8;
+  }
+
+  .page-header {
+    @apply mb-8 text-center;
+  }
+
+  .page-title {
+    @apply flex items-center justify-center gap-3 text-3xl font-light text-slate-800 sm:text-4xl;
+  }
+
+  .page-subtitle {
+    @apply mt-2 text-base text-slate-600 sm:text-lg;
+  }
+
+  .field-group {
+    @apply space-y-2;
+  }
+
+  .form-panel {
+    @apply rounded-lg border bg-white p-6 shadow-soft sm:p-8;
+  }
+
+  .icon-badge {
+    @apply flex size-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white;
+  }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plano de Segurança - TerapiApp</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="../index.html" class="nav-link active">Início</a>
+          </li>
+          <li><a href="./pages/registro.html" class="nav-link">Registro</a></li>
+          <li><a href="./pages/plano.html" class="nav-link">Plano</a></li>
+          <li><a href="./pages/ajuda.html" class="nav-link">Ajuda</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="page-header">
+        <h1><i class="fas fa-shield-alt"></i> Plano de Segurança</h1>
+        <h2>Ajude o paciente quando ele está com tendências suicidas.</h2>
+      </section>
+
+      <div class="form-container">
+        <form id="safetyPlanForm">
+          <div class="plan-step">           
+            <div class="form-group">
+              <label for="copingStrategies">
+                <i class="fas fa-check-circle"></i> 
+                Plano salvo com sucesso!
+              </label>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <a href="../index.html">
+              <button
+                type="button"
+                class="btn btn-secondary"
+              >
+                <i class="fas fa-arrow-left"></i> Voltar à tela inicial
+              </button>
+            </a>
+
+              <button
+                type="button"
+                class="btn btn-success"
+                onclick="navigateTo('../index.html')"
+              >
+                <i class="fas fa-save"></i> Imprimir Plano
+              </button>
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <div class="safety-tips">
+        <h3><i class="fas fa-lightbulb"></i> Dicas Importantes</h3>
+        <div class="tips-list">
+          <div class="tip-item">
+            <i class="fas fa-check-circle"></i>
+            <p>Revise seu plano regularmente com seu terapeuta</p>
+          </div>
+          <div class="tip-item">
+            <i class="fas fa-check-circle"></i>
+            <p>Compartilhe este plano com pessoas de confiança</p>
+          </div>
+          <div class="tip-item">
+            <i class="fas fa-check-circle"></i>
+            <p>Mantenha os contatos sempre atualizados</p>
+          </div>
+          <div class="tip-item">
+            <i class="fas fa-check-circle"></i>
+            <p>Lembre-se: pedir ajuda é um sinal de força</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2025 TerapiApp - Cuidando da sua saúde mental</p>
+      </div>
+    </footer>
+
+    <script src="./scripts/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instruções - TerapiApp</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="../index.html" class="nav-link active">Início</a>
+          </li>
+          <li><a href="./registro.html" class="nav-link">Registro</a></li>
+          <li><a href="./plano.html" class="nav-link">Plano</a></li>
+          <li><a href="./ajuda.html" class="nav-link">Instruções</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="page-header">
+        <h1><i class="fas fa-hands-helping"></i> Instruções de Uso</h1>
+      </section>
+
+      <div class="form-container">
+        <form id="moodForm">
+          <div class="form-group">
+            <label for="instrução1">
+              <i class="fa-solid fa-circle-info"></i> 1.
+            </label>
+            <p id="instrução1" name="instrução1" class="form-control">
+              Preencha os campos com o máximo de informação possível. Se o
+              motivo do atendimento for proteção a crise suicida, faça um plano
+              de segurança e forneça ao paciente, se forem mudanças de humor e
+              comportamentos sem risco suicida, use o registro de mudança de
+              humor.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução2">
+              <i class="fa-solid fa-puzzle-piece"></i> 2.
+            </label>
+            <p id="instrução2" name="instrução2" class="form-control">
+              Dê preferência a informações personalizadas, com as soluções
+              evocadas pelo próprio paciente primeiro.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução3">
+              <i class="fa-solid fa-compass"></i> 3.
+            </label>
+            <p id="instrução3" name="instrução3" class="form-control">
+              Na primeira consulta você pode coletar informação de qual etapa
+              ele tem preferência por recorrer para alívio. Incentive o paciente
+              a realizar as etapas de 1 a 6 nesta ordem, para promover autonomia
+              ao paciente na resolução da crise e o ajudar a encontrar recursos
+              próprios.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução4">
+              <i class="fa-solid fa-scale-balanced"></i> 4.
+            </label>
+            <p id="instrução4" name="instrução4" class="form-control">
+              Verifique e esclareça com o paciente se, havendo ideação suicida,
+              ela necessita de resolução de problemas (caso haja um problema que
+              levou a isso), ou dar preferência a distração (para situações que
+              não podem ser solucionados por ele ou que requerem tempo, espera
+              ou aceitação ao se deparar com o que não se podem mudar).
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução5">
+              <i class="fa-solid fa-file"></i> 5.
+            </label>
+            <p id="instrução5" name="instrução5" class="form-control">
+              Peça para que o paciente traga nos retornos seu plano de
+              segurança. É importante revisar como utilizou e como se sentiu
+              após fazê-lo.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução6">
+              <i class="fa-solid fa-heart"></i> 6.
+            </label>
+            <p id="instrução6" name="instrução6" class="form-control">
+              Motivos para viver podem ser registrados e impressos ao paciente
+              também. Você pode evocá-los em cada consulta de retorno e
+              encorajar a lembrar deles no dia a dia.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução7">
+              <i class="fa-solid fa-pills"></i> 7.
+            </label>
+            <p id="instrução7" name="instrução7" class="form-control">
+              Caso o paciente esteja em uso de medicamentos, avalie na etapa 6 o
+              risco e benefício de manter o uso ou fornecer acesso a este tipo
+              de método, por exemplo, caso haja tentativa recente ou recorrência
+              de tentativas por intoxicação exógena.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução8">
+              <i class="fa-solid fa-trash"></i> 8.
+            </label>
+            <p id="instrução8" name="instrução8" class="form-control">
+              Na etapa 6, pode ser descrito qualquer tipo de método se o
+              paciente verbalizar um plano ou tiver tentativa recente de
+              autolesão, como lâminas, facas, medicações, cordas, etc. Faça um
+              plano para se desfazer destes.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="instrução9"> <i class="fa-solid fa-hospital"></i> 9. </label>
+            <p id="instrução9" name="instrução9" class="form-control">
+              Se a identificação de risco for alta, através da avaliação do
+              profissional, sugerir a referência atendimento de urgência ou
+              medicação de forma aguda, sugere-se encaminhamento ao Pronto
+              Atendimento de referência.
+            </p>
+          </div>
+
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="window.location.href='../index.html'"
+            >
+              <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2025 TerapiApp - Cuidando da sua saúde mental</p>
+      </div>
+    </footer>
+
+    <script>
+      // Remove 'active' de todos os links
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        // Verifica se o href termina com o nome da página atual
+        if (
+          window.location.pathname.endsWith(link.getAttribute('href')) ||
+          window.location.pathname.endsWith(link.getAttribute('href').replace('./', ''))
+        ) {
+          link.classList.add('active');
+        }
+      });
+    </script>
+
+    <script src="./pages/scripts/script.js"></script>
+  </body>
+</html>
