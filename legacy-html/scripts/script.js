@@ -7,6 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeApp();
 });
 
+/**
+ * Inicializa comportamentos comuns das paginas HTML antigas.
+ *
+ * Entrada:
+ * - nao recebe parametros; usa o DOM carregado.
+ *
+ * Variaveis usadas:
+ * - hamburger: botao do menu mobile.
+ * - navMenu: lista de links do menu.
+ *
+ * Saida:
+ * - eventos de clique configurados e dados salvos carregados na tela.
+ */
 function initializeApp() {
   // Configurar navegação mobile
   const hamburger = document.querySelector(".hamburger");
@@ -32,6 +45,19 @@ function initializeApp() {
 }
 
 // Funções de humor
+/**
+ * Seleciona um humor, salva no historico e exibe feedback visual.
+ *
+ * Entrada:
+ * - mood: classe/id do humor escolhido, como happy, neutral, sad ou anxious.
+ *
+ * Variaveis usadas:
+ * - currentMood: humor atual da pagina.
+ * - botoes .mood-btn: recebem ou perdem a classe selected.
+ *
+ * Saida:
+ * - humor marcado na tela, historico salvo e notificacao exibida.
+ */
 function selectMood(mood) {
   currentMood = mood;
 
@@ -50,6 +76,19 @@ function selectMood(mood) {
   showMoodFeedback(mood);
 }
 
+/**
+ * Salva um humor no historico local do navegador.
+ *
+ * Entrada:
+ * - mood: humor escolhido pelo usuario.
+ *
+ * Variaveis usadas:
+ * - moodEntry: novo registro com humor, data ISO e timestamp.
+ * - moodHistory: lista global dos registros de humor.
+ *
+ * Saida:
+ * - localStorage moodHistory atualizado com no maximo 30 itens.
+ */
 function saveMood(mood) {
   const moodEntry = {
     mood: mood,
@@ -67,6 +106,19 @@ function saveMood(mood) {
   localStorage.setItem("moodHistory", JSON.stringify(moodHistory));
 }
 
+/**
+ * Mostra uma notificacao temporaria conforme o humor selecionado.
+ *
+ * Entrada:
+ * - mood: chave usada para buscar a mensagem em messages.
+ *
+ * Variaveis usadas:
+ * - messages: mapa de textos por humor.
+ * - notification: div criada dinamicamente no body.
+ *
+ * Saida:
+ * - notificacao adicionada ao DOM e removida apos alguns segundos.
+ */
 function showMoodFeedback(mood) {
   const messages = {
     happy: "Que bom que você está se sentindo bem! Continue assim! 😊",
@@ -104,11 +156,34 @@ function showMoodFeedback(mood) {
 }
 
 // Navegação
+/**
+ * Redireciona o navegador para outra pagina HTML.
+ *
+ * Entrada:
+ * - page: caminho ou URL de destino.
+ *
+ * Saida:
+ * - window.location.href alterado para a pagina indicada.
+ */
 function navigateTo(page) {
   window.location.href = page;
 }
 
 // Funções de formulário
+/**
+ * Le o formulario de humor, salva os dados e limpa os campos.
+ *
+ * Entrada:
+ * - nao recebe parametros; busca o formulario #moodForm no DOM.
+ *
+ * Variaveis usadas:
+ * - formData: dados capturados do formulario.
+ * - moodData: objeto final salvo.
+ * - moodRecords: registros anteriores do localStorage.
+ *
+ * Saida:
+ * - moodRecords atualizado, mensagem de sucesso exibida e formulario resetado.
+ */
 function submitMoodForm() {
   const form = document.getElementById("moodForm");
   if (!form) return;
@@ -136,6 +211,19 @@ function submitMoodForm() {
   form.reset();
 }
 
+/**
+ * Le o formulario do plano de seguranca e salva no navegador.
+ *
+ * Entrada:
+ * - nao recebe parametros; busca #safetyPlanForm no DOM.
+ *
+ * Variaveis usadas:
+ * - formData: dados capturados do formulario.
+ * - safetyPlan: objeto com respostas das etapas e timestamp.
+ *
+ * Saida:
+ * - localStorage safetyPlan atualizado e mensagem de sucesso exibida.
+ */
 function submitSafetyPlan() {
   const form = document.getElementById("safetyPlanForm");
   if (!form) return;
@@ -158,6 +246,19 @@ function submitSafetyPlan() {
   showSuccessMessage("Plano de segurança salvo com sucesso!");
 }
 
+/**
+ * Exibe uma mensagem temporaria de sucesso no topo do conteudo.
+ *
+ * Entrada:
+ * - message: texto que sera exibido ao usuario.
+ *
+ * Variaveis usadas:
+ * - successDiv: elemento criado para a mensagem.
+ * - container: elemento .main-content que recebe a mensagem.
+ *
+ * Saida:
+ * - mensagem inserida no DOM e removida depois de 3 segundos.
+ */
 function showSuccessMessage(message) {
   const successDiv = document.createElement("div");
   successDiv.className = "success-message";
@@ -173,6 +274,20 @@ function showSuccessMessage(message) {
 }
 
 // Carregar dados salvos
+/**
+ * Carrega dados salvos no navegador para preencher a pagina atual.
+ *
+ * Entrada:
+ * - nao recebe parametros; usa moodHistory e localStorage.
+ *
+ * Variaveis usadas:
+ * - lastMood: ultimo humor registrado.
+ * - timeDiff: diferenca entre agora e o registro.
+ * - safetyForm/savedPlan: formulario e plano salvos.
+ *
+ * Saida:
+ * - humor recente marcado e formulario de plano preenchido quando existir.
+ */
 function loadSavedData() {
   // Carregar último humor
   if (moodHistory.length > 0) {
@@ -204,11 +319,34 @@ function loadSavedData() {
   }
 }
 
+/**
+ * Limpa um campo de texto e devolve o foco para ele.
+ *
+ * Entrada:
+ * - input: elemento de formulario que sera limpo.
+ *
+ * Saida:
+ * - input.value vazio e foco aplicado no campo.
+ */
 function clearInput(input){
   input.value = '';
   input.focus();
 }
 
+/**
+ * Renderiza uma lista de pacientes no container informado.
+ *
+ * Entrada:
+ * - container: elemento DOM que recebera os itens.
+ * - dataItems: array de pacientes com name e age.
+ *
+ * Variaveis usadas:
+ * - itemDiv/contentDiv/buttonsDiv: elementos criados para cada paciente.
+ * - navigateTo: funcao chamada pelos botoes de registro e plano.
+ *
+ * Saida:
+ * - container preenchido com os cards/list items dos pacientes.
+ */
 function renderList(container, dataItems) {
   // Clear existing content to prevent duplicates on re-render
   container.innerHTML = '';
@@ -272,6 +410,20 @@ function renderList(container, dataItems) {
   });
 }
 
+/**
+ * Filtra pacientes pelo nome e redesenha a lista.
+ *
+ * Entrada:
+ * - list: container DOM onde o resultado sera renderizado.
+ * - items: array completo de pacientes.
+ * - searchTerm: texto digitado para busca.
+ *
+ * Variaveis usadas:
+ * - filteredItems: pacientes cujo nome contem o termo buscado.
+ *
+ * Saida:
+ * - renderList chamado com os itens filtrados.
+ */
 function search(list, items, searchTerm){
   console.log(searchTerm)
     const filteredItems = items.filter(item =>
@@ -281,6 +433,19 @@ function search(list, items, searchTerm){
 };
 
 // Carregar dados do histórico
+/**
+ * Carrega o historico de registros de humor e exibe na pagina.
+ *
+ * Entrada:
+ * - nao recebe parametros; busca #historyContainer no DOM.
+ *
+ * Variaveis usadas:
+ * - moodRecords: registros salvos no localStorage.
+ * - historyHTML: HTML acumulado para renderizacao.
+ *
+ * Saida:
+ * - container preenchido com historico ou mensagem de lista vazia.
+ */
 function loadHistoryData() {
   const historyContainer = document.getElementById("historyContainer");
   if (!historyContainer) return;
@@ -334,6 +499,18 @@ function loadHistoryData() {
 }
 
 // Funções de emergência
+/**
+ * Abre o site do CVV apos confirmacao do usuario.
+ *
+ * Entrada:
+ * - nao recebe parametros.
+ *
+ * Variaveis usadas:
+ * - confirm: pergunta se o usuario quer continuar.
+ *
+ * Saida:
+ * - nova aba com o site do CVV quando confirmado.
+ */
 function callEmergency() {
   if (
     confirm(
@@ -344,6 +521,19 @@ function callEmergency() {
   }
 }
 
+/**
+ * Busca ajuda profissional proxima usando geolocalizacao.
+ *
+ * Entrada:
+ * - nao recebe parametros; usa navigator.geolocation.
+ *
+ * Variaveis usadas:
+ * - lat/lng: coordenadas retornadas pelo navegador.
+ * - url: busca do Google Maps montada com as coordenadas.
+ *
+ * Saida:
+ * - nova aba com busca no Maps ou alerta quando nao for possivel localizar.
+ */
 function findNearbyHelp() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
