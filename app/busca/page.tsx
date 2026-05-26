@@ -1,3 +1,5 @@
+// Página para buscar pacientes.
+
 "use client";
 
 import Link from "next/link";

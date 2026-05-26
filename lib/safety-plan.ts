@@ -1,3 +1,5 @@
+// Dados das etapas do plano de segurança, dicas e contatos de emergência.
+
 import {
   CircleUserRound,
   HandHeart,

@@ -1,3 +1,5 @@
+// Tela reutilizada pelas etapas do plano de segurança.
+
 "use client";
 
 import { useEffect, useState } from "react";

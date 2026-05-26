@@ -1,3 +1,5 @@
+// Página para registrar mudanças de humor.
+
 "use client";
 
 import { useState } from "react";

@@ -1,3 +1,5 @@
+// Estrutura global com menu, conteúdo e rodape.
+
 import type { Metadata } from "next";
 import "./globals.css";
 

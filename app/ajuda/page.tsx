@@ -1,3 +1,5 @@
+// Página com instruções de uso.
+
 import {
   Compass,
   FileText,

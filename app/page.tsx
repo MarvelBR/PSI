@@ -1,3 +1,5 @@
+// Tela inicial do TerapiApp.
+
 import Image from "next/image";
 import Link from "next/link";
 import { ClipboardPenLine, HandHeart, ShieldCheck } from "lucide-react";
