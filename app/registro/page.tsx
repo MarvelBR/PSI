@@ -70,7 +70,7 @@ export default function RegistroPage() {
   }
 
   /**
-   * Salva o registro de humor no localStorage e limpa o formulario.
+   * Salva o motivos para viver no localStorage e limpa o formulario.
    *
    * Entrada:
    * - usa os valores atuais da variavel form.
@@ -104,7 +104,7 @@ export default function RegistroPage() {
 
       {saved && (
         <div className="mb-4 rounded-md bg-emerald-600 p-4 text-center text-white">
-          Registro de humor salvo com sucesso!
+          Motivos de viver salvo com sucesso!
         </div>
       )}
 

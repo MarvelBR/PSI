@@ -40,7 +40,7 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 border-b bg-white/95 shadow-sm backdrop-blur">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="text-lg font-semibold text-primary">
-          TerapiApp
+          SUISAFE
         </Link>
 
         <Button

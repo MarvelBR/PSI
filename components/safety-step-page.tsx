@@ -38,6 +38,13 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
   const step = safetySteps.find((item) => item.slug === stepSlug) as SafetyStep;
   const Icon = step.icon;
   const [value, setValue] = useState("");
+  const suggestions = "suggestions" in step ? step.suggestions : undefined;
+  const selectedSuggestions = new Set(
+    value
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean),
+  );
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -65,9 +72,24 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
     const savedPlan = JSON.parse(localStorage.getItem("safetyPlan") || "{}");
     localStorage.setItem(
       "safetyPlan",
+      // eslint-disable-next-line react-hooks/purity -- Timestamp is created only from the click handler when saving.
       JSON.stringify({ ...savedPlan, [step.name]: value, updatedAt: Date.now() }),
     );
     router.push(step.next);
+  }
+
+  function toggleSuggestion(suggestion: string, checked: boolean) {
+    const lines = value
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (checked) {
+      setValue([...lines, suggestion].join("\n"));
+      return;
+    }
+
+    setValue(lines.filter((line) => line !== suggestion).join("\n"));
   }
 
   return (
@@ -101,12 +123,39 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
             {step.emergency ? (
               <EmergencyContacts />
             ) : (
-              <Textarea
-                id={step.name}
-                value={value}
-                placeholder={step.placeholder}
-                onChange={(event) => setValue(event.target.value)}
-              />
+              <>
+                {suggestions ? (
+                  <div className="grid gap-2 rounded-lg border bg-slate-50 p-4 sm:grid-cols-2">
+                    {suggestions.map((suggestion) => {
+                      const checked = selectedSuggestions.has(suggestion);
+
+                      return (
+                        <label
+                          key={suggestion}
+                          className="flex min-h-11 items-start gap-3 rounded-md bg-white p-3 text-sm text-slate-700 shadow-sm"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={(event) =>
+                              toggleSuggestion(suggestion, event.target.checked)
+                            }
+                            className="mt-0.5 size-4 rounded border-slate-300 accent-primary"
+                          />
+                          <span>{suggestion}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                ) : null}
+
+                <Textarea
+                  id={step.name}
+                  value={value}
+                  placeholder={step.placeholder}
+                  onChange={(event) => setValue(event.target.value)}
+                />
+              </>
             )}
           </div>
         </div>
