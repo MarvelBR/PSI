@@ -3,8 +3,8 @@
 import {
   CircleUserRound,
   HandHeart,
+  Hospital,
   Phone,
-  ShieldAlert,
   ShieldCheck,
   TriangleAlert,
   Wrench,
@@ -124,22 +124,21 @@ export const safetySteps = [
 
 export const emergencyContacts = [
   {
-    title: "CVV - Centro de Valorização da Vida",
-    number: "188",
-    description: "24 horas, gratuito",
-    icon: Phone,
+    title: "Meu local de tratamento",
+    description: "Nome e telefone (preencher)",
+    icon: Hospital,
+  },
+  {
+    title: "CAPS",
+    description: "CAPS III Cidade Exemplo",
+    number: "(XX) XXXX-XXXX",
+    icon: HandHeart,
   },
   {
     title: "SAMU",
     number: "192",
     description: "Emergências médicas",
-    icon: HandHeart,
-  },
-  {
-    title: "Pronto Socorro",
-    number: "193",
-    description: "Bombeiros",
-    icon: ShieldAlert,
+    icon: Phone,
   },
 ];
 

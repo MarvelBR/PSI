@@ -104,7 +104,7 @@ export default function RegistroPage() {
 
       {saved && (
         <div className="mb-4 rounded-md bg-emerald-600 p-4 text-center text-white">
-          Motivos de viver salvo com sucesso!
+          Motivos para viver salvo com sucesso!
         </div>
       )}
 
