@@ -1,4 +1,4 @@
-// Tela inicial do TerapiApp.
+// Tela inicial do SUISAFE.
 
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const actions = [
   {
-    title: "Registro de Humor",
+    title: "Motivos para Viver",
     href: "/busca",
     icon: ClipboardPenLine,
   },

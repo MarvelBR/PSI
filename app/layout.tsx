@@ -7,8 +7,8 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "TerapiApp",
-  description: "Ferramentas para registro de humor e plano de segurança.",
+  title: "SUISAFE",
+  description: "Ferramentas para motivos para viver e plano de segurança.",
 };
 
 /**
