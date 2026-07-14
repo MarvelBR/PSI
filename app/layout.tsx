@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "SUISAFE",
+  title: "Meu PSI - Plano de Segurança Individual",
   description: "Ferramentas para motivos para viver e plano de segurança.",
 };
 

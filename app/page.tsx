@@ -1,4 +1,4 @@
-// Tela inicial do SUISAFE.
+// Tela inicial do Meu PSI - Plano de Segurança Individual.
 
 import Image from "next/image";
 import Link from "next/link";
@@ -44,7 +44,7 @@ export default function Home() {
           <h1 className="page-title">Olá, Profissional da Saúde!</h1>
         </div>
 
-        <div className="mx-auto flex h-72 max-w-3xl items-center justify-center rounded-lg bg-[#c3cfe2]">
+        <div className="mx-auto flex h-72 max-w-3xl items-center justify-center rounded-lg bg-[#c3cfe2] dark:bg-card">
           <Image
             src="/medico.png"
             alt="Profissional de saúde"
