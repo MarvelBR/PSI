@@ -130,8 +130,8 @@ export const emergencyContacts = [
   },
   {
     title: "CAPS",
-    description: "CAPS III Cidade Exemplo",
-    number: "(XX) XXXX-XXXX",
+    description: "Rua Pioneiro João José Queiroz, 650 - Bloco 1 (Jardim Panema)",
+    number: "(44) 3309-4493",
     icon: HandHeart,
   },
   {
