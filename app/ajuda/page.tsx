@@ -52,7 +52,7 @@ const instructions = [
 ];
 
 /**
- * Renderiza as instrucoes de uso do SUISAFE.
+ * Renderiza as instrucoes de uso do Meu PSI - Plano de Segurança Individual.
  *
  * Entrada:
  * - nao recebe parametros.
