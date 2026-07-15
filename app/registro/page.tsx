@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { addMoodRecord, migrateLegacyMoodRecords } from "@/lib/local-database";
 
 const initialForm = {
   date: "",
@@ -51,6 +52,11 @@ export default function RegistroPage() {
     date: new Date().toISOString().slice(0, 10),
   });
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState(false);
+
+  useEffect(() => {
+    migrateLegacyMoodRecords().catch(() => setSaveError(true));
+  }, []);
 
   /**
    * Atualiza um campo especifico do formulario sem alterar os outros.
@@ -70,23 +76,28 @@ export default function RegistroPage() {
   }
 
   /**
-   * Salva o motivos para viver no localStorage e limpa o formulario.
+ * Salva o registro no banco local e limpa o formulario.
    *
    * Entrada:
    * - usa os valores atuais da variavel form.
    *
    * Variaveis usadas:
    * - moodData: copia do formulario com timestamp.
-   * - records: registros antigos lidos de localStorage.
+ * - banco local: armazenamento persistente dos registros.
    * - saved: estado que exibe a confirmacao na tela.
    *
    * Saida:
-   * - localStorage atualizado e formulario reiniciado.
+ * - registro persistido e formulario reiniciado.
    */
-  function submitMoodForm() {
-    const moodData = { ...form, timestamp: Date.now() };
-    const records = JSON.parse(localStorage.getItem("moodRecords") || "[]");
-    localStorage.setItem("moodRecords", JSON.stringify([moodData, ...records]));
+  async function submitMoodForm() {
+    try {
+      await addMoodRecord(form);
+    } catch {
+      setSaveError(true);
+      return;
+    }
+
+    setSaveError(false);
     setSaved(true);
     setForm((current) => ({ ...initialForm, date: current.date }));
     window.setTimeout(() => setSaved(false), 3000);
@@ -105,6 +116,11 @@ export default function RegistroPage() {
       {saved && (
         <div className="mb-4 rounded-md bg-emerald-600 p-4 text-center text-white">
           Motivos para viver salvo com sucesso!
+        </div>
+      )}
+      {saveError && (
+        <div className="mb-4 rounded-md bg-red-600 p-4 text-center text-white">
+          Não foi possível salvar o registro no banco local.
         </div>
       )}
 
