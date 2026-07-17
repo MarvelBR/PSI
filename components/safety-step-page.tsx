@@ -12,7 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
-import { emergencyContacts, safetySteps } from "@/lib/safety-plan";
+import {
+  emergencyContacts,
+  safetySteps,
+  warningSignalCategories,
+} from "@/lib/safety-plan";
 import { getSafetyPlan, saveSafetyPlan, type TreatmentPlace } from "@/lib/local-database";
 
 type SafetyStep = (typeof safetySteps)[number];
@@ -51,7 +55,10 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
     name: "",
     phone: "",
   });
+  const [othersChecked, setOthersChecked] = useState(false);
+  const [othersText, setOthersText] = useState("");
   const suggestions = "suggestions" in step ? step.suggestions : undefined;
+  const isWarningSignals = "warningSignals" in step && step.warningSignals === true;
   const selectedSuggestions = new Set(
     value
       .split("\n")
@@ -68,6 +75,11 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
         name: savedPlan?.treatmentPlace?.name || "",
         phone: savedPlan?.treatmentPlace?.phone || "",
       });
+      const savedOthers = savedPlan?.warningSignalsOthers;
+      if (typeof savedOthers === "string" && savedOthers.length > 0) {
+        setOthersChecked(true);
+        setOthersText(savedOthers);
+      }
     }, 0);
 
     return () => window.clearTimeout(timeout);
@@ -93,6 +105,9 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
       id: "current",
       [step.name]: value,
       ...(step.emergency ? { treatmentPlace } : {}),
+      ...(isWarningSignals
+        ? { warningSignalsOthers: othersChecked ? othersText : "" }
+        : {}),
       // eslint-disable-next-line react-hooks/purity -- Timestamp is created only from the click handler when saving.
       updatedAt: Date.now(),
     });
@@ -152,9 +167,62 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
               />
             ) : (
               <>
-                {suggestions ? (
+                {isWarningSignals ? (
+                  <div className="flex flex-col gap-4">
+                    {warningSignalCategories.map((group) => (
+                      <div key={group.category} className="rounded-lg border bg-slate-50 p-4">
+                        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                          {group.category}
+                        </p>
+                        <div className="grid gap-2 sm:grid-cols-2">
+                          {group.items.map((item) => {
+                            const checked = selectedSuggestions.has(item);
+                            return (
+                              <label
+                                key={item}
+                                className="flex min-h-11 items-start gap-3 rounded-md bg-white p-3 text-sm text-slate-700 shadow-sm"
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={(event) =>
+                                    toggleSuggestion(item, event.target.checked)
+                                  }
+                                  className="mt-0.5 size-4 rounded border-slate-300 accent-primary"
+                                />
+                                <span>{item}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Checkbox "Outros" com textarea condicional */}
+                    <div className="rounded-lg border bg-slate-50 p-4">
+                      <label className="flex min-h-11 items-start gap-3 rounded-md bg-white p-3 text-sm text-slate-700 shadow-sm">
+                        <input
+                          type="checkbox"
+                          checked={othersChecked}
+                          onChange={(event) => setOthersChecked(event.target.checked)}
+                          className="mt-0.5 size-4 rounded border-slate-300 accent-primary"
+                        />
+                        <span className="font-medium">Outros</span>
+                      </label>
+                      {othersChecked && (
+                        <Textarea
+                          id="warningSignalsOthers"
+                          value={othersText}
+                          placeholder="Descreva outros sinais de alerta que você observa..."
+                          onChange={(event) => setOthersText(event.target.value)}
+                          className="mt-3"
+                        />
+                      )}
+                    </div>
+                  </div>
+                ) : suggestions ? (
                   <div className="grid gap-2 rounded-lg border bg-slate-50 p-4 sm:grid-cols-2">
-                    {suggestions.map((suggestion) => {
+                    {(suggestions as string[]).map((suggestion) => {
                       const checked = selectedSuggestions.has(suggestion);
 
                       return (
@@ -177,12 +245,14 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
                   </div>
                 ) : null}
 
-                <Textarea
-                  id={step.name}
-                  value={value}
-                  placeholder={step.placeholder}
-                  onChange={(event) => setValue(event.target.value)}
-                />
+                {!isWarningSignals && (
+                  <Textarea
+                    id={step.name}
+                    value={value}
+                    placeholder={step.placeholder}
+                    onChange={(event) => setValue(event.target.value)}
+                  />
+                )}
               </>
             )}
           </div>

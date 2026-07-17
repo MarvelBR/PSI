@@ -17,17 +17,68 @@ export const safetyTips = [
   "Lembre-se: pedir ajuda é um sinal de força",
 ];
 
+export type SuggestionCategory = {
+  category: string;
+  items: string[];
+};
+
+export const warningSignalCategories: SuggestionCategory[] = [
+  {
+    category: "Emocionais / Cognitivos",
+    items: [
+      "Humor negativo / irritabilidade",
+      "Expectativa frustrada",
+      "Antecipação de fatos / pensamento repetitivo",
+      "Desesperança",
+      "Insatisfação com a imagem corporal",
+    ],
+  },
+  {
+    category: "Comportamentais",
+    items: [
+      "Uso de substância",
+      "Ação impulsiva / autolesiva",
+    ],
+  },
+  {
+    category: "Clínicos",
+    items: [
+      "Instabilidade de um transtorno mental",
+      "Sinais físicos ou clínicos",
+      "Alteração do sono",
+    ],
+  },
+  {
+    category: "Relacionais e Sociais",
+    items: [
+      "Conflito em relacionamento",
+      "Convivência familiar conflitante",
+      "Exposição ao comportamento suicida de pessoas próximas",
+      "Solidão",
+      "Questões relacionadas à sexualidade",
+    ],
+  },
+  {
+    category: "Contextuais / Biográficos",
+    items: [
+      "Fatos passados",
+      "Mudanças de vida / questões profissionais e/ou financeiras",
+    ],
+  },
+];
+
 export const safetySteps = [
   {
     slug: "plano",
     number: 1,
     progress: 16,
     title: "Sinais de Alerta",
-    label: "Identifique seus sinais de alerta",
+    label: "Identifique os sinais do início da crise",
     name: "warningSignals",
-    placeholder: "Ex: pensamentos negativos, isolamento, mudanças no sono...",
+    placeholder: "Descreva outros sinais de alerta que você observa...",
     icon: TriangleAlert,
     next: "/plano/2",
+    warningSignals: true,
   },
   {
     slug: "2",
@@ -38,12 +89,13 @@ export const safetySteps = [
     name: "copingStrategies",
     placeholder: "Ex: respirar fundo, ouvir música, fazer exercícios, meditar...",
     suggestions: [
-      "Respirar fundo por alguns minutos",
-      "Ouvir uma música tranquila",
-      "Tomar um banho relaxante",
-      "Fazer uma caminhada curta",
-      "Escrever o que estou sentindo",
-      "Praticar meditação ou atenção plena",
+      "Oração",
+      "Atividade de relaxamento",
+      "Pensar em atividades prazerosas",
+      "Fazer tarefas pendentes",
+      "Ler um cartão lembrete (escreva algo positivo)",
+      "Jogar um jogo",
+      "Ouvir um podcast",
     ],
     icon: Wrench,
     next: "/plano/3",
