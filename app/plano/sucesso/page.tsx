@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { CheckCircle, Home, Printer, ShieldCheck } from "lucide-react";
+import { CheckCircle, Download, Home, Printer, ShieldCheck } from "lucide-react";
 
 import { SafetyTips } from "@/components/safety-tips";
 import { Button } from "@/components/ui/button";
+import { getSafetyPlan } from "@/lib/local-database";
+import { generateSafetyPlanPdf } from "@/lib/generate-safety-plan-pdf";
 
 /**
  * Mostra a confirmacao final apos salvar o plano de seguranca.
@@ -14,11 +17,26 @@ import { Button } from "@/components/ui/button";
  *
  * Variaveis usadas:
  * - window.print: aciona a impressao do plano quando o usuario clica no botao.
+ * - downloadError: indica quando o plano nao foi encontrado para gerar o PDF.
  *
  * Saida:
- * - tela de sucesso com botoes para voltar ao inicio ou imprimir.
+ * - tela de sucesso com botoes para voltar ao inicio, imprimir ou baixar PDF.
  */
 export default function PlanoSucessoPage() {
+  const [downloadError, setDownloadError] = useState(false);
+
+  async function handleDownloadPdf() {
+    const plan = await getSafetyPlan();
+
+    if (!plan) {
+      setDownloadError(true);
+      return;
+    }
+
+    setDownloadError(false);
+    generateSafetyPlanPdf(plan);
+  }
+
   return (
     <main className="page-shell">
       <section className="page-header">
@@ -39,12 +57,22 @@ export default function PlanoSucessoPage() {
           Plano salvo com sucesso!
         </h2>
 
+        {downloadError && (
+          <p className="mt-4 text-sm text-red-600">
+            Não foi possível encontrar um plano salvo para gerar o PDF.
+          </p>
+        )}
+
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild variant="secondary">
             <Link href="/">
               <Home />
               Voltar à tela inicial
             </Link>
+          </Button>
+          <Button variant="success" onClick={handleDownloadPdf}>
+            <Download />
+            Baixar PDF
           </Button>
           <Button variant="success" onClick={() => window.print()}>
             <Printer />
