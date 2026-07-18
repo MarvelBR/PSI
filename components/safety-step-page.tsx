@@ -12,27 +12,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
-import { emergencyContacts, safetySteps, warningSignalCategories } from "@/lib/safety-plan";
+import {
+  emergencyContacts,
+  safetySteps,
+  warningSignalCategories,
+} from "@/lib/safety-plan";
+import { getSafetyPlan, saveSafetyPlan, type TreatmentPlace } from "@/lib/local-database";
 
 type SafetyStep = (typeof safetySteps)[number];
 
 type SafetyStepPageProps = {
   stepSlug: string;
 };
-
-type SavedSafetyPlan = Record<string, unknown> & {
-  treatmentPlace?: Partial<TreatmentPlace>;
-};
-
-function readSavedSafetyPlan(): SavedSafetyPlan {
-  try {
-    const parsed = JSON.parse(localStorage.getItem("safetyPlan") || "{}");
-
-    return parsed && typeof parsed === "object" ? parsed : {};
-  } catch {
-    return {};
-  }
-}
 
 /**
  * Renderiza uma etapa do plano de seguranca e salva a resposta do usuario.
@@ -76,15 +67,15 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
   );
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => {
-      const savedPlan = readSavedSafetyPlan();
-      const savedValue = savedPlan[step.name];
+    const timeout = window.setTimeout(async () => {
+      const savedPlan = await getSafetyPlan();
+      const savedValue = savedPlan?.[step.name];
       setValue(typeof savedValue === "string" ? savedValue : "");
       setTreatmentPlace({
-        name: savedPlan.treatmentPlace?.name || "",
-        phone: savedPlan.treatmentPlace?.phone || "",
+        name: savedPlan?.treatmentPlace?.name || "",
+        phone: savedPlan?.treatmentPlace?.phone || "",
       });
-      const savedOthers = savedPlan["warningSignalsOthers"];
+      const savedOthers = savedPlan?.warningSignalsOthers;
       if (typeof savedOthers === "string" && savedOthers.length > 0) {
         setOthersChecked(true);
         setOthersText(savedOthers);
@@ -101,27 +92,25 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
    * - usa value e step.name para montar o campo salvo.
    *
    * Variaveis usadas:
-   * - savedPlan: plano ja existente em localStorage.
+ * - savedPlan: plano ja existente no banco local.
    * - updatedAt: horario da ultima alteracao.
    *
    * Saida:
-   * - localStorage safetyPlan atualizado e navegacao para step.next.
+ * - plano atualizado no banco local e navegacao para step.next.
    */
-  function saveAndContinue() {
-    const savedPlan = readSavedSafetyPlan();
-    // eslint-disable-next-line react-hooks/purity -- Timestamp is created only from the click handler when saving.
-    const updatedAt = Date.now();
-
-    localStorage.setItem(
-      "safetyPlan",
-      JSON.stringify({
-        ...savedPlan,
-        [step.name]: value,
-        ...(step.emergency ? { treatmentPlace } : {}),
-        ...(isWarningSignals ? { warningSignalsOthers: othersChecked ? othersText : "" } : {}),
-        updatedAt,
-      }),
-    );
+  async function saveAndContinue() {
+    const savedPlan = await getSafetyPlan();
+    await saveSafetyPlan({
+      ...(savedPlan ?? {}),
+      id: "current",
+      [step.name]: value,
+      ...(step.emergency ? { treatmentPlace } : {}),
+      ...(isWarningSignals
+        ? { warningSignalsOthers: othersChecked ? othersText : "" }
+        : {}),
+      // eslint-disable-next-line react-hooks/purity -- Timestamp is created only from the click handler when saving.
+      updatedAt: Date.now(),
+    });
     router.push(step.next);
   }
 
@@ -302,11 +291,6 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
  * Saida:
  * - grade de cards com telefones de apoio.
  */
-type TreatmentPlace = {
-  name: string;
-  phone: string;
-};
-
 type EmergencyContactsProps = {
   treatmentPlace: TreatmentPlace;
   onTreatmentPlaceChange: (treatmentPlace: TreatmentPlace) => void;
