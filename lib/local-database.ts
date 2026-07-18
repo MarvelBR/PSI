@@ -151,3 +151,26 @@ export async function migrateLegacyMoodRecords(): Promise<void> {
 
   localStorage.removeItem("moodRecords");
 }
+
+/**
+ * Busca todos os registros de mudança de humor salvos, do mais recente
+ * para o mais antigo.
+ *
+ * Entrada:
+ * - não recebe parâmetros.
+ *
+ * Variáveis usadas:
+ * - createdAt: índice do object store usado para ordenar os registros.
+ *
+ * Saída:
+ * - lista de MoodRecord ordenada por data de criação decrescente.
+ */
+export async function getAllMoodRecords(): Promise<MoodRecord[]> {
+  const records = await runTransaction<MoodRecord[]>(
+    MOOD_RECORDS_STORE,
+    "readonly",
+    (store) => store.index("createdAt").getAll(),
+  );
+
+  return records.sort((a, b) => b.createdAt - a.createdAt);
+}

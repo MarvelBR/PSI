@@ -9,6 +9,7 @@ import {
   Bolt,
   Brain,
   Calendar,
+  Download,
   Frown,
   Info,
   MapPin,
@@ -16,11 +17,17 @@ import {
   Smile,
 } from "lucide-react";
 
+import {
+  addMoodRecord,
+  getAllMoodRecords,
+  migrateLegacyMoodRecords,
+} from "@/lib/local-database";
+import { generateMoodRecordsPdf } from "@/lib/generate-mood-records-pdf";
+
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { addMoodRecord, migrateLegacyMoodRecords } from "@/lib/local-database";
 import { VoiceInputButton } from "@/components/voice-input-button";
 
 const initialForm = {
@@ -77,18 +84,18 @@ export default function RegistroPage() {
   }
 
   /**
- * Salva o registro no banco local e limpa o formulario.
+   * Salva o registro no banco local e limpa o formulario.
    *
    * Entrada:
    * - usa os valores atuais da variavel form.
    *
    * Variaveis usadas:
    * - moodData: copia do formulario com timestamp.
- * - banco local: armazenamento persistente dos registros.
+   * - banco local: armazenamento persistente dos registros.
    * - saved: estado que exibe a confirmacao na tela.
    *
    * Saida:
- * - registro persistido e formulario reiniciado.
+   * - registro persistido e formulario reiniciado.
    */
   async function submitMoodForm() {
     try {
@@ -100,8 +107,19 @@ export default function RegistroPage() {
 
     setSaveError(false);
     setSaved(true);
-    setForm((current) => ({ ...initialForm, date: current.date }));
     window.setTimeout(() => setSaved(false), 3000);
+  }
+
+  const [pdfError, setPdfError] = useState(false);
+
+  async function handleDownloadPdf() {
+    try {
+      const records = await getAllMoodRecords();
+      generateMoodRecordsPdf(records);
+      setPdfError(false);
+    } catch {
+      setPdfError(true);
+    }
   }
 
   return (
@@ -182,10 +200,20 @@ export default function RegistroPage() {
             onChange={(value) => updateField("reaction", value)}
           />
 
+          {pdfError && (
+            <div className="rounded-md bg-red-600 p-4 text-center text-white">
+              Não foi possível gerar o PDF do histórico.
+            </div>
+          )}
+
           <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <Button type="button" variant="secondary" onClick={() => router.back()}>
               <ArrowLeft />
               Cancelar
+            </Button>
+            <Button type="button" variant="secondary" onClick={handleDownloadPdf}>
+              <Download />
+              Baixar Histórico em PDF
             </Button>
             <Button type="button" onClick={submitMoodForm}>
               <Save />
@@ -205,8 +233,8 @@ export default function RegistroPage() {
         </p>
         <ul className="mt-3 list-inside list-disc space-y-1">
           <li>
-            Se o motivo do atendimento for proteção a crise suicida, faça um plano
-            de segurança.
+            Se o motivo do atendimento for proteção a crise suicida, faça um
+            plano de segurança.
           </li>
           <li>Para mudanças de humor sem risco suicida, use este registro.</li>
         </ul>
