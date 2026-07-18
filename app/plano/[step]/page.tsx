@@ -1,7 +1,13 @@
 import { notFound } from "next/navigation";
 
 import { SafetyStepPage } from "@/components/safety-step-page";
-import { getSafetyStep } from "@/lib/safety-plan";
+import { getSafetyStep, safetySteps } from "@/lib/safety-plan";
+
+export function generateStaticParams() {
+  return safetySteps
+    .filter((step) => step.slug !== "plano")
+    .map((step) => ({ step: step.slug }));
+}
 
 /**
  * Renderiza uma etapa dinamica do plano de seguranca conforme a URL.
