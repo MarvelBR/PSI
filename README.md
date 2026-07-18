@@ -16,7 +16,7 @@ Este protótipo foi desenvolvido como parte de uma parceria acadêmica com a **U
 - Paulo Henrique Salvadori Junior
 - João Pedro Novais Zanusso
 - André Felipe Wonsik Alves
-- Eber Felipe Barotti Louback
+- Eber Felipe Barrotti Louback
 - Gustavo Martins França
 
 ## Funcionalidades Principais
