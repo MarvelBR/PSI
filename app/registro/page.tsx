@@ -21,6 +21,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { addMoodRecord, migrateLegacyMoodRecords } from "@/lib/local-database";
+import { VoiceInputButton } from "@/components/voice-input-button";
 
 const initialForm = {
   date: "",
@@ -247,9 +248,14 @@ function TextAreaField({
 }: TextAreaFieldProps) {
   return (
     <div className="field-group">
-      <Label htmlFor={id} className="flex items-center gap-2">
-        {icon}
-        {label}
+      <Label htmlFor={id} className="flex items-center justify-between gap-2">
+        <span className="flex items-center gap-2">
+          {icon}
+          {label}
+        </span>
+        <VoiceInputButton
+          onTranscript={(text) => onChange(value ? `${value} ${text}` : text)}
+        />
       </Label>
       <Textarea
         id={id}

@@ -17,7 +17,12 @@ import {
   safetySteps,
   warningSignalCategories,
 } from "@/lib/safety-plan";
-import { getSafetyPlan, saveSafetyPlan, type TreatmentPlace } from "@/lib/local-database";
+import {
+  getSafetyPlan,
+  saveSafetyPlan,
+  type TreatmentPlace,
+} from "@/lib/local-database";
+import { VoiceInputButton } from "@/components/voice-input-button";
 
 type SafetyStep = (typeof safetySteps)[number];
 
@@ -58,7 +63,8 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
   const [othersChecked, setOthersChecked] = useState(false);
   const [othersText, setOthersText] = useState("");
   const suggestions = "suggestions" in step ? step.suggestions : undefined;
-  const isWarningSignals = "warningSignals" in step && step.warningSignals === true;
+  const isWarningSignals =
+    "warningSignals" in step && step.warningSignals === true;
   const selectedSuggestions = new Set(
     value
       .split("\n")
@@ -92,11 +98,11 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
    * - usa value e step.name para montar o campo salvo.
    *
    * Variaveis usadas:
- * - savedPlan: plano ja existente no banco local.
+   * - savedPlan: plano ja existente no banco local.
    * - updatedAt: horario da ultima alteracao.
    *
    * Saida:
- * - plano atualizado no banco local e navegacao para step.next.
+   * - plano atualizado no banco local e navegacao para step.next.
    */
   async function saveAndContinue() {
     const savedPlan = await getSafetyPlan();
@@ -155,9 +161,23 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
           </h2>
 
           <div className="field-group">
-            <Label htmlFor={step.name} className="flex items-center gap-2">
-              <Icon className="size-4" />
-              {step.label}
+            <Label
+              htmlFor={step.name}
+              className="flex items-center justify-between gap-2"
+            >
+              <span className="flex items-center gap-2">
+                <Icon className="size-4" />
+                {step.label}
+              </span>
+              {!isWarningSignals && (
+                <VoiceInputButton
+                  onTranscript={(text) =>
+                    setValue((current) =>
+                      current ? `${current} ${text}` : text,
+                    )
+                  }
+                />
+              )}
             </Label>
 
             {step.emergency ? (
@@ -170,7 +190,10 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
                 {isWarningSignals ? (
                   <div className="flex flex-col gap-4">
                     {warningSignalCategories.map((group) => (
-                      <div key={group.category} className="rounded-lg border bg-slate-50 p-4">
+                      <div
+                        key={group.category}
+                        className="rounded-lg border bg-slate-50 p-4"
+                      >
                         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
                           {group.category}
                         </p>
@@ -204,19 +227,32 @@ export function SafetyStepPage({ stepSlug }: SafetyStepPageProps) {
                         <input
                           type="checkbox"
                           checked={othersChecked}
-                          onChange={(event) => setOthersChecked(event.target.checked)}
+                          onChange={(event) =>
+                            setOthersChecked(event.target.checked)
+                          }
                           className="mt-0.5 size-4 rounded border-slate-300 accent-primary"
                         />
                         <span className="font-medium">Outros</span>
                       </label>
                       {othersChecked && (
-                        <Textarea
-                          id="warningSignalsOthers"
-                          value={othersText}
-                          placeholder="Descreva outros sinais de alerta que você observa..."
-                          onChange={(event) => setOthersText(event.target.value)}
-                          className="mt-3"
-                        />
+                        <div className="mt-3 flex items-start gap-2">
+                          <Textarea
+                            id="warningSignalsOthers"
+                            value={othersText}
+                            placeholder="Descreva outros sinais de alerta que você observa..."
+                            onChange={(event) =>
+                              setOthersText(event.target.value)
+                            }
+                            className="mt-3"
+                          />
+                          <VoiceInputButton
+                            onTranscript={(text) =>
+                              setOthersText((current) =>
+                                current ? `${current} ${text}` : text,
+                              )
+                            }
+                          />
+                        </div>
                       )}
                     </div>
                   </div>
