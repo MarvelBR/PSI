@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Mic, Square } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,20 @@ function getSpeechRecognitionConstructor() {
   return (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition || null;
 }
 
+// O suporte a reconhecimento de fala nao muda durante a execucao da pagina,
+// entao a "subscricao" nao precisa escutar nada.
+function subscribeToSpeechSupport() {
+  return () => {};
+}
+
+function getSpeechSupportSnapshot() {
+  return getSpeechRecognitionConstructor() !== null;
+}
+
+function getSpeechSupportServerSnapshot() {
+  return false;
+}
+
 /**
  * Botão de microfone que transcreve a fala do usuário em texto.
  *
@@ -26,14 +40,20 @@ function getSpeechRecognitionConstructor() {
  * - recognitionRef: instância da API de reconhecimento de fala do navegador.
  * - isRecording: controla o estado visual do botão (gravando ou não).
  * - isSupported: indica se o navegador atual oferece reconhecimento de fala,
- *   calculado uma única vez na inicialização do estado.
+ *   lido via useSyncExternalStore para evitar erro de hydration (o servidor
+ *   sempre reporta "nao suportado", ja que window nao existe la).
  *
  * Saída:
- * - botão com ícone de microfone que inicia/para a gravação por voz.
+ * - botão com ícone de microfone que inicia/para a gravação por voz, ou
+ *   nada quando o navegador não suporta reconhecimento de fala.
  */
 export function VoiceInputButton({ onTranscript, className }: VoiceInputButtonProps) {
   const [isRecording, setIsRecording] = useState(false);
-  const [isSupported] = useState(() => getSpeechRecognitionConstructor() !== null);
+  const isSupported = useSyncExternalStore(
+    subscribeToSpeechSupport,
+    getSpeechSupportSnapshot,
+    getSpeechSupportServerSnapshot,
+  );
   const recognitionRef = useRef<any>(null);
   const onTranscriptRef = useRef(onTranscript);
 
