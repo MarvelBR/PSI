@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ClipboardPenLine, HandHeart, ShieldCheck } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { basePath } from "@/lib/base-path";
 
 const actions = [
   {
@@ -46,7 +47,7 @@ export default function Home() {
 
         <div className="mx-auto flex h-72 max-w-3xl items-center justify-center rounded-lg bg-[#c3cfe2] dark:bg-card">
           <Image
-            src="/medico.png"
+            src={`${basePath}/medico.png`}
             alt="Profissional de saúde"
             width={300}
             height={300}
