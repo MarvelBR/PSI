@@ -60,7 +60,7 @@ export default function MotivosPage() {
           Motivos para Viver
         </h1>
         <p className="page-subtitle">
-          Encontre e registre as motivações de vida do paciente
+          Encontre as motivações de vida do paciente.
         </p>
       </section>
 

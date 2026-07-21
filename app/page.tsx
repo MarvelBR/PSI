@@ -8,6 +8,11 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const actions = [
   {
+    title: "Pacientes",
+    href: "/busca",
+    icon: Users,
+  },
+  {
     title: "Motivos para Viver",
     href: "/motivos",
     icon: ClipboardPenLine,
@@ -18,19 +23,14 @@ const actions = [
     icon: ShieldCheck,
   },
   {
-    title: "Instruções",
-    href: "/ajuda",
-    icon: HandHeart,
-  },
-  {
     title: "Registro de Humor",
     href: "/registro",
     icon: Save,
   },
   {
-    title: "Pacientes",
-    href: "/busca",
-    icon: Users,
+    title: "Instruções",
+    href: "/ajuda",
+    icon: HandHeart,
   },
 ];
 

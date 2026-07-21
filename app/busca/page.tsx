@@ -79,7 +79,7 @@ export default function BuscaPage() {
                 <Button asChild size="sm" variant="secondary">
                   <Link href="/registro">Ver Registro</Link>
                 </Button>
-                <Button asChild size="sm" variant="secondary">
+                <Button asChild size="sm" variant="tertiary">
                   <Link href="/motivos">Ver Motivos para Viver</Link>
                 </Button>
                 <Button asChild size="sm">
