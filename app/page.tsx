@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ClipboardPenLine, HandHeart, ShieldCheck } from "lucide-react";
+import { ClipboardPenLine, HandHeart, Save, ShieldCheck, Users } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 
 const actions = [
   {
     title: "Motivos para Viver",
-    href: "/busca",
+    href: "/motivos",
     icon: ClipboardPenLine,
   },
   {
@@ -21,6 +21,16 @@ const actions = [
     title: "Instruções",
     href: "/ajuda",
     icon: HandHeart,
+  },
+  {
+    title: "Registro de Humor",
+    href: "/registro",
+    icon: Save,
+  },
+  {
+    title: "Pacientes",
+    href: "/busca",
+    icon: Users,
   },
 ];
 
