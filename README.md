@@ -14,10 +14,10 @@ Este protótipo foi desenvolvido como parte de uma parceria acadêmica com a **U
 ### Desenvolvedores (Alunos da UTFPR-CM)
 - Erick Molina Gehring
 - João Pedro Novais Zanusso
+- Paulo Henrique Salvadori Junior
 - André Felipe Wonsik Alves
 - Eber Felipe Barrotti Louback
 - Gustavo Martins França
-- Paulo Henrique Salvadori Junior
 
 ## Funcionalidades Principais
 
