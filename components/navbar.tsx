@@ -12,8 +12,10 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Início" },
-  { href: "/registro", label: "Registro" },
+  { href: "/busca", label: "Pacientes" },
+  { href: "/motivos", label: "Motivos para Viver" },
   { href: "/plano", label: "Plano" },
+  { href: "/registro", label: "Registro" },
   { href: "/ajuda", label: "Instruções" },
 ];
 
