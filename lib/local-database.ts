@@ -6,10 +6,12 @@
  */
 
 const DATABASE_NAME = "suisafe";
-const DATABASE_VERSION = 1;
+const DATABASE_VERSION = 2;
 const SAFETY_PLANS_STORE = "safetyPlans";
 const MOOD_RECORDS_STORE = "moodRecords";
+const REASONS_TO_LIVE_STORE = "reasonsToLive";
 const CURRENT_SAFETY_PLAN_ID = "current";
+const CURRENT_REASONS_ID = "current";
 
 export type TreatmentPlace = {
   name: string;
@@ -20,6 +22,12 @@ export type SafetyPlan = Record<string, unknown> & {
   id: string;
   updatedAt: number;
   treatmentPlace?: TreatmentPlace;
+};
+
+export type ReasonsToLive = {
+  id: string;
+  content: string;
+  updatedAt: number;
 };
 
 export type MoodRecord = {
@@ -49,6 +57,10 @@ function openDatabase(): Promise<IDBDatabase> {
           keyPath: "id",
         });
         store.createIndex("createdAt", "createdAt");
+      }
+
+      if (!database.objectStoreNames.contains(REASONS_TO_LIVE_STORE)) {
+        database.createObjectStore(REASONS_TO_LIVE_STORE, { keyPath: "id" });
       }
     };
     request.onsuccess = () => resolve(request.result);
@@ -150,6 +162,40 @@ export async function migrateLegacyMoodRecords(): Promise<void> {
   }
 
   localStorage.removeItem("moodRecords");
+}
+
+/**
+ * Busca os motivos para viver salvos.
+ *
+ * Saída:
+ * - objeto ReasonsToLive ou null se ainda não foi preenchido.
+ */
+export async function getReasonsToLive(): Promise<ReasonsToLive | null> {
+  const result = await runTransaction<ReasonsToLive | undefined>(
+    REASONS_TO_LIVE_STORE,
+    "readonly",
+    (store) => store.get(CURRENT_REASONS_ID),
+  );
+  return result ?? null;
+}
+
+/**
+ * Salva os motivos para viver no banco local.
+ *
+ * Entrada:
+ * - content: texto com os motivos para viver.
+ */
+export async function saveReasonsToLive(content: string): Promise<void> {
+  const record: ReasonsToLive = {
+    id: CURRENT_REASONS_ID,
+    content,
+    updatedAt: Date.now(),
+  };
+  await runTransaction<IDBValidKey>(
+    REASONS_TO_LIVE_STORE,
+    "readwrite",
+    (store) => store.put(record),
+  );
 }
 
 /**

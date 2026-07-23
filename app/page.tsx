@@ -2,21 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ClipboardPenLine, HandHeart, ShieldCheck } from "lucide-react";
+import { ClipboardPenLine, HandHeart, Save, ShieldCheck, Users } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { basePath } from "@/lib/base-path";
 
 const actions = [
   {
-    title: "Motivos para Viver",
+    title: "Pacientes",
     href: "/busca",
+    icon: Users,
+  },
+  {
+    title: "Motivos para Viver",
+    href: "/motivos",
     icon: ClipboardPenLine,
   },
   {
     title: "Plano de Segurança",
     href: "/plano",
     icon: ShieldCheck,
+  },
+  {
+    title: "Registro de Humor",
+    href: "/registro",
+    icon: Save,
   },
   {
     title: "Instruções",
