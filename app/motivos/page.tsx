@@ -96,7 +96,7 @@ export default function MotivosPage() {
           <Textarea
             id="reasonsToLive"
             value={content}
-            placeholder="Encontre as motivações de vida do paciente"
+            placeholder="Encontre as motivações de vida do paciente..."
             onChange={(event) => setContent(event.target.value)}
             className="min-h-48"
           />
